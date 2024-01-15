@@ -45,6 +45,8 @@ cfg_if! {
                                 }
                             };
 
+            sqlx::migrate!("src/migrations").run(& pool).await.expect("Could not run sqlx migrations");
+
             HttpServer::new(move ||{
                 let leptos_options = &conf.leptos_options;
                 let site_root = &leptos_options.site_root;
