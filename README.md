@@ -9,6 +9,10 @@ This is an example that has switched from SQLite SSR mode to PostgreSQL in the l
 
 # Execution Method
 
+## Caution!
+
+To run this example, Docker must first be installed
+
 ## Start
 
 ```bash
