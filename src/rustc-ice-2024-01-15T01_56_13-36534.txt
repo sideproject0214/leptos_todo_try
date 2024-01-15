@@ -1,0 +1,29 @@
+thread 'main' panicked at /rust/deps/annotate-snippets-0.9.1/src/display_list/from_snippet.rs:286:9:
+SourceAnnotation range `(60, 62)` is bigger than source length `58`
+stack backtrace:
+   0:        0x104b5df8f - std::backtrace::Backtrace::create::h853274c52985d973
+   1:        0x104b5dee5 - std::backtrace::Backtrace::force_capture::h2bfdc657a505887d
+   2:        0x10ea91152 - <alloc[2eecf9cfecaf83ce]::boxed::Box<rustc_driver_impl[f13dd8f84cb4357f]::install_ice_hook::{closure#0}> as core[2ede0b9707bf954c]::ops::function::Fn<(&dyn for<'a, 'b> core[2ede0b9707bf954c]::ops::function::Fn<(&'a core[2ede0b9707bf954c]::panic::panic_info::PanicInfo<'b>,), Output = ()> + core[2ede0b9707bf954c]::marker::Send + core[2ede0b9707bf954c]::marker::Sync, &core[2ede0b9707bf954c]::panic::panic_info::PanicInfo)>>::call
+   3:        0x104b77ec5 - std::panicking::rust_panic_with_hook::h9c00d974ceb338c5
+   4:        0x104b77c54 - std::panicking::begin_panic_handler::{{closure}}::hf4c836e26d8f4ae3
+   5:        0x104b74c39 - std::sys_common::backtrace::__rust_end_short_backtrace::h49ee6c47ac1866c1
+   6:        0x104b77992 - _rust_begin_unwind
+   7:        0x104bddb45 - core::panicking::panic_fmt::h05bb93b74c8bd301
+   8:        0x10394ebac - annotate_snippets[348ae69cca33ccd]::display_list::from_snippet::format_slice
+   9:        0x10394c251 - <annotate_snippets[348ae69cca33ccd]::display_list::structs::DisplayList as core[2ede0b9707bf954c]::convert::From<annotate_snippets[348ae69cca33ccd]::snippet::Snippet>>::from
+  10:        0x10388377e - <rustfmt_nightly[99e1f8e1d1912f9f]::format_report_formatter::FormatReportFormatter as core[2ede0b9707bf954c]::fmt::Display>::fmt
+  11:        0x104bc1603 - core::fmt::write::hcda85e255755a20a
+  12:        0x104b68829 - <&std::io::stdio::Stderr as std::io::Write>::write_fmt::h9359724877b4498f
+  13:        0x104b690e7 - std::io::stdio::_eprint::hc5080fa40cb56145
+  14:        0x1036ac8dc - rustfmt[dd1887aa6b9f53e2]::format_and_emit_report::<std[829606beaf6966b7]::io::stdio::Stdout>
+  15:        0x1036aba22 - rustfmt[dd1887aa6b9f53e2]::execute
+  16:        0x1036a90bb - rustfmt[dd1887aa6b9f53e2]::main
+  17:        0x1036c7916 - std[829606beaf6966b7]::sys_common::backtrace::__rust_begin_short_backtrace::<fn(), ()>
+  18:        0x1036bd07c - std[829606beaf6966b7]::rt::lang_start::<()>::{closure#0}
+  19:        0x104b5c830 - std::rt::lang_start_internal::h1eb5e6ba311410b9
+  20:        0x1036ad3fc - _main
+  21:     0x7ff815ace386 - <unknown>
+
+
+rustc version: 1.77.0-nightly (e51e98dde 2023-12-31)
+platform: x86_64-apple-darwin
