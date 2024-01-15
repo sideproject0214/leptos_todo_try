@@ -1,28 +1,15 @@
-use cfg_if::cfg_if;
 use leptos::*;
 use leptos_meta::*;
 use leptos_router::*;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
-// #[cfg_attr(feature = "ssr", derive(sqlx::FromRow))]
+#[cfg_attr(feature = "ssr", derive(sqlx::FromRow))]
 pub struct Todo {
     id: u16,
     title: String,
     completed: bool,
 }
-
-// cfg_if! {
-//     if #[cfg(feature= "ssr")]{
-//         use sqlx::{postgres::PgPoolOptions, Pool,
-// Postgres};
-
-//         pub async fn db() -> Result<SqliteConnection,
-// ServerFnError>{
-// Ok(SqliteConnection::connect("sqlite:Todos.db").await?)
-//         }
-//     }
-// }
 
 #[component]
 pub fn App() -> impl IntoView {
@@ -34,7 +21,7 @@ pub fn App() -> impl IntoView {
         <Stylesheet id="leptos" href="/pkg/leptos_start.css"/>
 
         // sets the document title
-        <Title text="Rusty Llama"/>
+        <Title text="todos"/>
         <Router>
             <header>
                 <h1>"My Tasks"</h1>
@@ -50,7 +37,7 @@ pub fn App() -> impl IntoView {
 
 #[component]
 pub fn Todos() -> impl IntoView {
-    view! { <h1>Hello</h1> }
+    view! { <h1>Hello!!!</h1> }
 }
 
 /// Renders the home page of your application.
