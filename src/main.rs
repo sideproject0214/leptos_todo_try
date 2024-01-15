@@ -11,12 +11,16 @@ cfg_if! {
         use actix_web::*;
         use leptos::*;
         use leptos_actix::{generate_route_list, LeptosRoutes};
-        use sqlx::postgres::PgPoolOptions;
+        use sqlx::{postgres::PgPoolOptions, Pool, Postgres};
         use crate::app::*;
 
         #[get("/style.css")]
         async fn css() -> impl Responder {
             actix_files::NamedFile::open_async("./style.css").await
+        }
+
+        pub struct AppState {
+            pub db: Pool<Postgres>,
         }
 
         #[actix_web::main]
@@ -28,24 +32,8 @@ cfg_if! {
             // Generate the list of routes in your Leptos App
             let routes = generate_route_list(App);
 
-            let database_url = "postgres://dev:password123@localhost:5432/todo";
-
-            let pool = match PgPoolOptions::new()
-                            .max_connections(10)
-                            .connect(&database_url)
-                            .await
-                            {
-                                Ok(pool) => {
-                                    println!("✅ Connection to the database is successful!");
-                                    pool
-                                }
-                                Err(err) => {
-                                    println!("🔥 Failed to connect to the database: {:?}",err);
-                                    std::process::exit(1);
-                                }
-                            };
-
-            sqlx::migrate!("src/migrations").run(& pool).await.expect("Could not run sqlx migrations");
+            let mut conn = db().await.expect("couldn't connect to DB");
+            sqlx::migrate!("src/migrations").run(&mut conn).await.expect("Could not run sqlx migrations");
 
             HttpServer::new(move ||{
                 let leptos_options = &conf.leptos_options;
@@ -53,6 +41,10 @@ cfg_if! {
                 let routes = &routes;
 
                 App::new()
+                .wrap(middleware::Logger::default())
+                // .app_data(web::Data::new(AppState {
+                //     db: pool.clone(),
+                // }))
                 .service(css)
                 .route("/api/{tail:.*}", leptos_actix::handle_server_fns())
                 .leptos_routes(leptos_options.to_owned(), routes.to_owned(), App)

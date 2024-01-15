@@ -20,6 +20,7 @@ wasm-bindgen = "=0.2"
 # sqlx-pg-seeder = "0.1.4"
 
 # 앱 만들기 위해 필요한 것들
+futures = "0.3.25"
 serde = { version = "1", features = ["derive"] }
 log = "0.4"
 simple_logger = "4"
