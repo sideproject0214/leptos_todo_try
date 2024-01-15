@@ -11,13 +11,13 @@ cfg_if! {
         use actix_web::*;
         use leptos::*;
         use leptos_actix::{generate_route_list, LeptosRoutes};
-        use sqlx::{postgres::PgPoolOptions, Pool, Postgres};
+        use sqlx::{Pool, Postgres};
         use crate::app::*;
 
-        #[get("/style.css")]
-        async fn css() -> impl Responder {
-            actix_files::NamedFile::open_async("./style.css").await
-        }
+        // #[get("/style.scss")]
+        // async fn css() -> impl Responder {
+        //     actix_files::NamedFile::open_async("./public/style.scss").await
+        // }
 
         pub struct AppState {
             pub db: Pool<Postgres>,
@@ -45,7 +45,7 @@ cfg_if! {
                 // .app_data(web::Data::new(AppState {
                 //     db: pool.clone(),
                 // }))
-                .service(css)
+                // .service(css)
                 .route("/api/{tail:.*}", leptos_actix::handle_server_fns())
                 .leptos_routes(leptos_options.to_owned(), routes.to_owned(), App)
                 .service(Files::new("/", site_root))

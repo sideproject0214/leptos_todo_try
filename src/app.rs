@@ -147,6 +147,7 @@ pub fn Todos() -> impl IntoView {
                 <label>"Add a Todo" <input type="text" name="title"/></label>
                 <input type="submit" value="Add"/>
             </MultiActionForm>
+
             <Transition fallback=move || {
                 view! { <p>"Loading..."</p> }
             }>
